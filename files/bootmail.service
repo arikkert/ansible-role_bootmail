@@ -1,0 +1,13 @@
+# File managed by Ansible
+[Unit]
+Description=A service that executes a user script on startup
+#Wants=netwerk.target
+
+[Service]
+RemainAfterExit=yes
+Type=oneshot
+ExecStart=/usr/local/sbin//bootmail start
+ExecStop=/usr/local/sbin/bootmail stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# File managed by Ansible
+# =============================================================================
+
+PROGNAME=$(basename $0)
+MAILTO="root"
+BOOTLOGFILE=/var/log/${PROGNAME}.log
+HOSTNAME=$(hostname)
+DATE=$(date)
+EMAIL=/tmp/email.txt
+
+# =============================================================================
+# Functions
+# =============================================================================
+
+domail()
+{
+	UPDOWN=$1
+
+	BOOTINFO="${HOSTNAME} : ${UPDOWN} at ${DATE}"
+
+	#
+	# mail to operators 
+	#
+
+	# header
+	cat <<- EOF > ${EMAIL}
+	From: ${MAILTO}
+	To: ${MAILTO}
+	Subject: ${BOOTINFO}
+	EOF
+	# content
+	dmesg >> ${EMAIL}
+	# send it
+	sendmail < ${EMAIL} $MAILTO 
+
+	#
+	# append to bootlogfile 
+	#
+
+	if [ ! -f ${BOOTLOGFILE} ]
+	then
+		(echo "logfile created by ${PROGNAME}"; echo)	>  ${BOOTLOGFILE}
+	fi
+	echo "${BOOTINFO}"					>> ${BOOTLOGFILE}
+
+	chmod 644	${BOOTLOGFILE} 
+	chown root:root	${BOOTLOGFILE}
+}
+
+# =============================================================================
+# Main
+# =============================================================================
+
+case "$1" in
+start)
+	domail startup
+	;;
+stop)
+	domail shutdown
+	;;
+*)
+	echo "Usage: `basename $0` {start|stop}" >&2
+	;;
+esac
+
+
+# =============================================================================
+# End
+# =============================================================================

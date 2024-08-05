@@ -1,0 +1,15 @@
+---
+# tasks file for ansible-role_bootmail
+
+- name: Ensure script is in place
+  ansible.builtin.copy:
+    src: bootmail
+    dest: /usr/local/sbin/
+    mode: "0755"
+
+- name: Ensure servicefile is in place
+  ansible.builtin.copy:
+    src: bootmail.service
+    dest: /usr/lib/systemd/system/
+    mode: "0644"
+  notify: Setup bootmail service
