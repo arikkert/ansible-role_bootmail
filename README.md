@@ -1,22 +1,22 @@
 Role Name
 =========
 
-Send email tot root account on shutdown and bootup
+Send email to root account on shutdown and bootup
 
 Requirements
 ------------
 
-root account is configured to read email .e.g. by a proper alias in /etc/aliases
+root email account is configured for this use .e.g. by a proper alias in /etc/aliases thats forwards it to a sysadmin mbox
 
 Role Variables
 --------------
 
-none
+None
 
 Dependencies
 ------------
 
-none
+None
 
 Example Playbook
 ----------------
