@@ -7,9 +7,15 @@
     dest: /usr/local/sbin/
     mode: "0755"
 
-- name: Ensure servicefile is in place
+- name: Ensure servicefile in old (and wrong) location is not present (bugfix)
+  ansible.builtin.file:
+    path: /usr/lib/systemd/system/bootmail.service
+    state: absent
+  notify: Setup bootmail service
+
+- name: Ensure servicefile is present
   ansible.builtin.copy:
     src: bootmail.service
-    dest: /usr/lib/systemd/system/
+    dest: /etc/systemd/system/
     mode: "0644"
   notify: Setup bootmail service
