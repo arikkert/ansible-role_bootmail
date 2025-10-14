@@ -1,4 +1,4 @@
-Role Name
+bootmail
 =========
 
 Send email to root account on shutdown and bootup
