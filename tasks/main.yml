@@ -19,3 +19,9 @@
     dest: /etc/systemd/system/
     mode: "0644"
   notify: Setup bootmail service
+
+- name: Ensure service is started
+  ansible.builtin.systemd:
+    name: bootmail.service
+    state: started
+    enabled: true

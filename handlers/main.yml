@@ -4,6 +4,6 @@
 - name: Setup bootmail service
   ansible.builtin.systemd:
     name: bootmail
-    state: started
+    state: reloaded
     enabled: true
     daemon_reload: true
