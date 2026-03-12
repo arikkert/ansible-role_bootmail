@@ -1,7 +1,8 @@
 # File managed by Ansible
 [Unit]
 Description=A service that executes a user script on startup
-#Wants=netwerk.target
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 RemainAfterExit=yes
